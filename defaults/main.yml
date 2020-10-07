@@ -1,8 +1,4 @@
 ---
-
-ros_ip: "{{ ansible_ssh_host }}"
-ros_master_uri: "http://{{ ansible_ssh_host }}:11311"
-
-cpu_arch: "latest"
-
-docker_name: "ros_bridge"
+ros_ip: '{{ ansible_ssh_host }}'
+ros_master_uri: 'http://{{ ansible_ssh_host }}:11311'
+docker_name: 'ros_bridge_suite'

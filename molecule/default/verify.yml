@@ -1,0 +1,23 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Test ros master
+      shell: '{% raw %}$(docker inspect -f ''{{.State.Running}}'' ros_master) = "true"{% endraw %}'
+      register: cmd_result
+      ignore_errors: yes
+
+    - name: ROS master should be running
+      assert:
+        that: '{{ cmd_result.rc }} == 0'
+
+    - name: Test ros bridge suite
+      shell: '{% raw %}$(docker inspect -f ''{{.State.Running}}'' ros_bridge_suite) = "true"{% endraw %}'
+      register: cmd_result
+      ignore_errors: yes
+
+    - name: ROS Bridge Suite should be running
+      assert:
+        that: '{{ cmd_result.rc }} == 0'

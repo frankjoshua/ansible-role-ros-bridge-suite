@@ -1,11 +1,10 @@
 ---
-
 - name: Start {{ docker_name }} docker container
   docker_container:
-    name: "{{ docker_name }}"
-    image: "frankjoshua/ros-bridge-suite:{{ cpu_arch }}"
-    network_mode: "host"
-    restart_policy: "unless-stopped"
+    name: '{{ docker_name }}'
+    image: 'frankjoshua/ros-bridge-suite'
+    network_mode: 'host'
+    restart_policy: 'unless-stopped'
     env:
-      ROS_MASTER_URI: "{{ ros_master_uri }}"
-      ROS_IP: "{{ ros_ip }}"
+      ROS_MASTER_URI: '{{ ros_master_uri }}'
+      ROS_IP: '{{ ros_ip }}'
