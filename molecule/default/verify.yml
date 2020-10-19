@@ -3,21 +3,25 @@
 
 - name: Verify
   hosts: all
+
+  vars:
+    container_name: 'ros_bridge_suite'
+
   tasks:
-    - name: Test ros master
-      shell: '{% raw %}$(docker inspect -f ''{{.State.Running}}'' ros_master) = "true"{% endraw %}'
-      register: cmd_result
-      ignore_errors: yes
+    - name: Wait for container to start
+      wait_for:
+        timeout: 30
 
-    - name: ROS master should be running
+    - name: Get infos on container
+      docker_container_info:
+        name: '{{ container_name }}'
+      register: result
+
+    - name: Does container exist?
       assert:
-        that: '{{ cmd_result.rc }} == 0'
+        that: result.exists
 
-    - name: Test ros bridge suite
-      shell: '{% raw %}$(docker inspect -f ''{{.State.Running}}'' ros_bridge_suite) = "true"{% endraw %}'
-      register: cmd_result
-      ignore_errors: yes
-
-    - name: ROS Bridge Suite should be running
+    - name: Check if container is healthy
       assert:
-        that: '{{ cmd_result.rc }} == 0'
+        that: "'{{ result.container['State']['Health']['Status'] }}' == 'healthy'"
+      when: result.exists
