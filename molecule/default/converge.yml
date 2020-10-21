@@ -16,6 +16,9 @@
     - name: Gathering facts
       setup:
 
+  vars:
+    ros_ip: 127.0.0.1
+
   tasks:
     - name: 'Include ansible-role-ros-bridge-suite'
       include_role:
