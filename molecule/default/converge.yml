@@ -17,9 +17,10 @@
       setup:
 
   vars:
+    role_name: "{{ lookup('env', 'ROLE_NAME') }}"
     ros_ip: 127.0.0.1
 
   tasks:
-    - name: 'Include ansible-role-ros-bridge-suite'
+    - name: 'Include {{ role_name }}'
       include_role:
-        name: 'ansible-role-ros-bridge-suite'
+        name: '{{ role_name }}'

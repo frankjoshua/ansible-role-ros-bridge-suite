@@ -1,11 +1,9 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
 
   vars:
-    container_name: 'ros_bridge_suite'
+    container_name: "{{ lookup('env', 'DOCKER_NAME') }}"
 
   tasks:
     - name: Wait for container to start

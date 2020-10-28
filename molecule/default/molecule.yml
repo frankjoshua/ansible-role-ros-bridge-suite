@@ -21,5 +21,11 @@ platforms:
       - /var/run/docker.sock:/var/run/docker.sock
 provisioner:
   name: ansible
+  # Turn on Diff for extra debugging
+  options:
+    D: True
+  env:
+    DOCKER_NAME: ros_bridge_suite
+    ROLE_NAME: ansible-role-ros-bridge-suite
 verifier:
   name: ansible
